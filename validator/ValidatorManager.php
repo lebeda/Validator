@@ -1,6 +1,6 @@
 <?php
 
-class ValidatorManager implements Validator {
+class ValidatorManager {
 	
 	const RULE_SEPARATOR = '|';
 	
@@ -9,26 +9,25 @@ class ValidatorManager implements Validator {
 	
 	public function validate($input, $rules) {
 		$this->prepareRules($rules);
+		if (!empty($this->rules)) {
+			foreach ($this->rules as $rule) {
+				
+			}
+		}
 	}
 	
 	protected function prepareRules($stringRules) {
 		if (is_string($stringRules)) {
 			$rules = explode(self::RULE_SEPARATOR, $rules);
 			foreach ($rules as $rule) {
-				$this->addConcreteRule($rule);
+				$this->rule[] = $this->takeRuleConfigFromString($rule);
 			}
 		} else {
 			throw new InvalidArgumentException('Argument $rules must be a string.');
 		}
 	}
 	
-	protected function addConcreteRule($rule) {
-		if ($this->isValidRule($rule)) {
-			
-		}
-	}
-	
-	protected function isValidRule($rule) {
-		return preg_match($this->ruleRegularExpression, $rule);
+	protected function takeRuleConfigFromString($ruleString) {
+		return preg_match($this->ruleRegularExpression, $ruleString);
 	}
 }
