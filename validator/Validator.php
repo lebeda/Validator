@@ -1,5 +1,5 @@
 <?php
 
-class Validator {
-
+interface Validator {
+	public function validate($input, $rules);
 }
