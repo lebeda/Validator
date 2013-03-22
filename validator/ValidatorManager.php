@@ -18,7 +18,7 @@ class ValidatorManager implements Validator {
 				$this->addConcreteRule($rule);
 			}
 		} else {
-			throw new InvalidArgumentException('Argument $rules must be a string');
+			throw new InvalidArgumentException('Argument $rules must be a string.');
 		}
 	}
 	
