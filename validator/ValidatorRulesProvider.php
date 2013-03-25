@@ -10,13 +10,20 @@ class ValidatorRulesProvider {
 	public function validate($input, $rules) {
 		$this->prepareRules($rules);
 		if (!empty($this->rules)) {
+			$this->result = FALSE;
 			foreach ($this->rules as $rule) {
 				if (empty($rule['argument'])) {
-					$this->$rule['rule']($input);
+					$result = $this->$rule['rule']($input);
 				} {
-					$this->$rule['rule']($input, $rule['argument']);
+					$result = $this->$rule['rule']($input, $rule['argument']);
+				}
+				
+				if ($result !== TRUE) {
+					return FALSE;
 				}
 			}
+			
+			return TRUE;
 		}
 	}
 	
