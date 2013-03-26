@@ -19,7 +19,16 @@ class Validator extends ValidatorRulesProvider {
 	}
 	
 	protected function integer($input) {
-		return TRUE;
+		if (is_numeric($input)) {
+			$potencionalInt = (int) $input;
+			if (strlen($potencionalInt) == strlen($input)) {
+				return TRUE;
+			} else {
+				return FALSE;
+			}
+		}
+		
+		return FALSE;
 	}
 	
 	protected function ip($input) {
