@@ -73,7 +73,7 @@ class Validator extends ValidatorRulesProvider {
 	}
 	
 	protected function maxRange($input, $maxRange = NULL) {
-		return TRUE;
+		return ($maxRange >= str_replace(',', '.', $input));
 	}
 	
 	protected function minLength($input, $minLength = NULL) {
@@ -90,6 +90,6 @@ class Validator extends ValidatorRulesProvider {
 	}
 	
 	protected function minRange($input, $minRange = NULL) {
-		return TRUE;
+		return ($minRange <= str_replace(',', '.', $input));
 	}
 }
