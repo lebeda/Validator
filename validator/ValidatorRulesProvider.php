@@ -3,9 +3,11 @@
 class ValidatorRulesProvider {
 	
 	const RULE_SEPARATOR = '|';
+	const DEFAULT_CHARSET = 'UTF-8';
 	
 	protected $ruleRegularExpression = '#(?P<rule>[a-zA-Z]+)(?:\[(?P<argument>\w+)\])?\|?#';
 	protected $rules = array();
+	protected $charset;
 	
 	public function validate($input, $rules) {
 		$this->prepareRules($rules);
@@ -37,6 +39,18 @@ class ValidatorRulesProvider {
 			}
 		} else {
 			throw new InvalidArgumentException('Argument $rules must be a string.');
+		}
+	}
+	
+	public function setCharset($charset = self::DEFAULT_CHARSET) {
+		$this->charset = $charset;
+	}
+	
+	protected function getCharset() {
+		if (empty($this->charset)) {
+			return self::DEFAULT_CHARSET;
+		} else {
+			return $this->charset;
 		}
 	}
 }
