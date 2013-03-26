@@ -15,6 +15,7 @@ class Validator extends ValidatorRulesProvider {
 	}
 	
 	protected function float($input) {
+		
 		return TRUE;
 	}
 	
@@ -40,7 +41,13 @@ class Validator extends ValidatorRulesProvider {
 	}
 	
 	protected function maxLength($input, $maxLength = NULL) {
-		return TRUE;
+		if (is_null($maxLength)) {
+			return TRUE;
+		} elseif (is_numeric($maxLength) && strlen($input) <= (int) $maxLength) {
+			return TRUE;
+		} else {
+			return FALSE;
+		}
 	}
 	
 	protected function maxRange($input, $maxRange = NULL) {
