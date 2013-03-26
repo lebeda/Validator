@@ -43,7 +43,10 @@ class Validator extends ValidatorRulesProvider {
 	protected function maxLength($input, $maxLength = NULL) {
 		if (is_null($maxLength)) {
 			return TRUE;
-		} elseif (is_numeric($maxLength) && strlen($input) <= (int) $maxLength) {
+		} elseif (
+			is_numeric($maxLength)
+			&& mb_strlen($input, $this->getCharset()) <= (int) $maxLength
+		) {
 			return TRUE;
 		} else {
 			return FALSE;
@@ -55,7 +58,16 @@ class Validator extends ValidatorRulesProvider {
 	}
 	
 	protected function minLength($input, $minLength = NULL) {
-		return TRUE;
+		if (is_null($minLength)) {
+			return TRUE;
+		} elseif (
+			is_numeric($minLength)
+			&& mb_strlen($input, $this->getCharset()) >= (int) $minLength
+		) {
+			return TRUE;
+		} else {
+			return FALSE;
+		}
 	}
 	
 	protected function minRange($input, $minRange = NULL) {
