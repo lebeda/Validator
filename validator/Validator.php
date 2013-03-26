@@ -41,22 +41,34 @@ class Validator extends ValidatorRulesProvider {
 		return FALSE;
 	}
 	
-	protected function ip($input, $ipVersion = 4) {
-		switch ($ipVersion) {
-			case 4:
-				return filter_var($input, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)
-					? TRUE
-					: FALSE;
-				break;
-			case 6:
-				return filter_var($input, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)
-					? TRUE
-					: FALSE;
-				break;
-			default:
-				return FALSE;
-				break;
+	protected function ip($input) {
+		if (!$this->ipv4($input)) {
+			if ($this->ipv6($input)) {
+				return TRUE;
+			}
+			
+			return FALSE;
+		} elseif (!$this->ipv6($input)) {
+			if ($this->ipv4($input)) {
+				return TRUE;
+			}
+			
+			return FALSE;
 		}
+		
+		return FALSE;
+	}
+	
+	protected function ipv4($input) {
+		return filter_var($input, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)
+			? TRUE
+			: FALSE;
+	}
+	
+	protected function ipv6($input) {
+		return filter_var($input, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)
+			? TRUE
+			: FALSE;
 	}
 	
 	protected function maxLength($input, $maxLength = NULL) {
