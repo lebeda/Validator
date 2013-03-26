@@ -73,7 +73,11 @@ class Validator extends ValidatorRulesProvider {
 	}
 	
 	protected function maxRange($input, $maxRange = NULL) {
-		return ($maxRange >= str_replace(',', '.', $input));
+		if (is_null($maxRange)) {
+			return TRUE;
+		} else {
+			return ($maxRange >= str_replace(',', '.', $input));
+		}
 	}
 	
 	protected function minLength($input, $minLength = NULL) {
@@ -90,6 +94,10 @@ class Validator extends ValidatorRulesProvider {
 	}
 	
 	protected function minRange($input, $minRange = NULL) {
-		return ($minRange <= str_replace(',', '.', $input));
+		if (is_null($minRange)) {
+			return TRUE;
+		} else {
+			return ($minRange <= str_replace(',', '.', $input));
+		}
 	}
 }
