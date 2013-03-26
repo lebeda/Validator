@@ -1,6 +1,8 @@
 <?php
 
 class Validator extends ValidatorRulesProvider {
+	
+	protected $specialAplhabet = 'áäčďéëěíïňóöřšťúůüýÿžÁÄČĎÉËÍÏŇÓÖŘŠŤÚŮÜÝŸŽĚçãõâêôàÇÃÕÂÊÔÀĹĽĺľŔŕ';
 
 	protected function alpha($input) {
 		return TRUE;
@@ -55,10 +57,6 @@ class Validator extends ValidatorRulesProvider {
 				return FALSE;
 				break;
 		}
-	}
-			
-	protected function ipBase64($input) {
-			return TRUE;
 	}
 	
 	protected function maxLength($input, $maxLength = NULL) {
