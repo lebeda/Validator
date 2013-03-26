@@ -11,18 +11,13 @@ class Validator extends ValidatorRulesProvider {
 	}
 	
 	protected function email($input) {
-		return TRUE;
+		return (bool) filter_var($input, FILTER_VALIDATE_EMAIL);
 	}
 	
 	protected function float($input) {
-		
-		return TRUE;
-	}
-	
-	protected function integer($input) {
 		if (is_numeric($input)) {
-			$potencionalInt = (int) $input;
-			if (strlen($potencionalInt) == strlen($input)) {
+			$input = str_replace(',', '.', $input);
+			if ((string) $input === (string) (float) $input) {
 				return TRUE;
 			} else {
 				return FALSE;
@@ -32,12 +27,38 @@ class Validator extends ValidatorRulesProvider {
 		return FALSE;
 	}
 	
-	protected function ip($input) {
-		return TRUE;
+	protected function integer($input) {
+		if (is_numeric($input)) {
+			if ((string) $input === (string) (int) $input) {
+				return TRUE;
+			} else {
+				return FALSE;
+			}
+		}
+		
+		return FALSE;
 	}
 	
+	protected function ip($input, $ipVersion = 4) {
+		switch ($ipVersion) {
+			case 4:
+				return filter_var($input, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)
+					? TRUE
+					: FALSE;
+				break;
+			case 6:
+				return filter_var($input, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)
+					? TRUE
+					: FALSE;
+				break;
+			default:
+				return FALSE;
+				break;
+		}
+	}
+			
 	protected function ipBase64($input) {
-		return TRUE;
+			return TRUE;
 	}
 	
 	protected function maxLength($input, $maxLength = NULL) {
