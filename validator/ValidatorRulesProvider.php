@@ -15,10 +15,11 @@ class ValidatorRulesProvider {
 		if (!empty($this->rules)) {
 			$this->result = FALSE;
 			foreach ($this->rules as $rule) {
+				$functionName = $this->getValidationFunctionFromRule($rule['rule']);
 				if (empty($rule['argument'])) {
-					$result = $this->{self::DEFAULT_FUNCTION_PREFIX . $rule['rule']($input)};
+					$result = $this->$functionName($input);
 				} else {
-					$result = $this->{self::DEFAULT_FUNCTION_PREFIX . $rule['rule']($input, $rule['argument'])};
+					$result = $this->$functionName($input, $rule['argument']);
 				}
 				
 				if ($result !== TRUE) {
@@ -35,12 +36,16 @@ class ValidatorRulesProvider {
 			preg_match_all($this->ruleRegularExpression, $stringRules, $matches);
 			foreach ($matches['rule'] as $index => $rule) {
 				$this->rules[] = array(
-					'rule' => ucfirst($rule),
+					'rule' => $rule,
 					'argument' => $matches['argument'][$index]);
 			}
 		} else {
 			throw new InvalidArgumentException('Argument $rules must be a string.');
 		}
+	}
+	
+	protected function getValidationFunctionFromRule($rule) {
+		return self::DEFAULT_FUNCTION_PREFIX . ucfirst($rule);
 	}
 	
 	public function setCharset($charset = self::DEFAULT_CHARSET) {
