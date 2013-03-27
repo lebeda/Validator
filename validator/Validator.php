@@ -62,45 +62,33 @@ class Validator extends ValidatorRulesProvider {
 		return filter_var($input, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) ? TRUE : FALSE;
 	}
 	
-	protected function isMaxLength($input, $maxLength = NULL) {
-		if (is_null($maxLength)) {
-			return TRUE;
-		} elseif (
-			is_numeric($maxLength)
-			&& mb_strlen($input, $this->getCharset()) <= (int) $maxLength
+	protected function isMaxLength($input, $maxLength) {
+		if (
+			$this->isInteger($maxLength)
+			&& mb_strlen($input, $this->getCharset()) <= $maxLength
 		) {
 			return TRUE;
-		} else {
-			return FALSE;
 		}
+		
+		return FALSE;
 	}
 	
-	protected function isMaxRange($input, $maxRange = NULL) {
-		if (is_null($maxRange)) {
-			return TRUE;
-		} else {
-			return ($maxRange >= str_replace(',', '.', $input));
-		}
+	protected function isMaxRange($input, $maxRange) {
+		return ($maxRange >= (int) str_replace(',', '.', $input));
 	}
 	
-	protected function isMinLength($input, $minLength = NULL) {
-		if (is_null($minLength)) {
-			return TRUE;
-		} elseif (
-			is_numeric($minLength)
-			&& mb_strlen($input, $this->getCharset()) >= (int) $minLength
+	protected function isMinLength($input, $minLength) {
+		if (
+			$this->isInteger($minLength)
+			&& mb_strlen($input, $this->getCharset()) >= $minLength
 		) {
 			return TRUE;
-		} else {
-			return FALSE;
 		}
+		
+		return FALSE;
 	}
 	
-	protected function isMinRange($input, $minRange = NULL) {
-		if (is_null($minRange)) {
-			return TRUE;
-		} else {
-			return ($minRange <= str_replace(',', '.', $input));
-		}
+	protected function isMinRange($input, $minRange) {
+		return ($minRange <= (int) str_replace(',', '.', $input));
 	}
 }
