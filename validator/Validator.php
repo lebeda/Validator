@@ -9,13 +9,13 @@ class Validator extends ValidatorRulesProvider {
 
 	protected function isAlpha($input) {
 		throw new NotImplementedException(
-			'The validation function ' . __CLASS__ . '::' . __METHOD__ . ' is not implemented.'
+			'The validation function ' . __METHOD__ . ' is not implemented.'
 		);
 	}
 	
 	protected function isAlphaNumeric($input) {
 		throw new NotImplementedException(
-			'The validation function ' . __CLASS__ . '::' . __METHOD__ . ' is not implemented.'
+			'The validation function ' . __METHOD__ . ' is not implemented.'
 		);
 	}
 	
