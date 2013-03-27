@@ -63,15 +63,11 @@ class Validator extends ValidatorRulesProvider {
 	}
 	
 	protected function ipv4($input) {
-		return filter_var($input, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)
-			? TRUE
-			: FALSE;
+		return filter_var($input, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) ? TRUE : FALSE;
 	}
 	
 	protected function ipv6($input) {
-		return filter_var($input, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)
-			? TRUE
-			: FALSE;
+		return filter_var($input, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) ? TRUE : FALSE;
 	}
 	
 	protected function maxLength($input, $maxLength = NULL) {
