@@ -45,8 +45,8 @@ class Validator extends ValidatorRulesProvider {
 	}
 	
 	protected function isIp($input) {
-		if (!$this->ipv4($input)) {
-			if ($this->ipv6($input)) {
+		if (!$this->isIpv4($input)) {
+			if ($this->isIpv6($input)) {
 				return TRUE;
 			}
 			
