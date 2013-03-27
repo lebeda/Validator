@@ -4,6 +4,7 @@ class ValidatorRulesProvider {
 	
 	const RULE_SEPARATOR = '|';
 	const DEFAULT_CHARSET = 'UTF-8';
+	const DEFAULT_FUNCTION_PREFIX = 'is';
 	
 	protected $ruleRegularExpression = '#(?P<rule>[a-zA-Z]+)(?:\[(?P<argument>\w+)\])?\|?#';
 	protected $rules = array();
@@ -15,9 +16,9 @@ class ValidatorRulesProvider {
 			$this->result = FALSE;
 			foreach ($this->rules as $rule) {
 				if (empty($rule['argument'])) {
-					$result = $this->$rule['rule']($input);
-				} {
-					$result = $this->$rule['rule']($input, $rule['argument']);
+					$result = $this->{self::DEFAULT_FUNCTION_PREFIX . $rule['rule']($input)};
+				} else {
+					$result = $this->{self::DEFAULT_FUNCTION_PREFIX . $rule['rule']($input, $rule['argument'])};
 				}
 				
 				if ($result !== TRUE) {
@@ -34,7 +35,7 @@ class ValidatorRulesProvider {
 			preg_match_all($this->ruleRegularExpression, $stringRules, $matches);
 			foreach ($matches['rule'] as $index => $rule) {
 				$this->rules[] = array(
-					'rule' => $rule,
+					'rule' => ucfirst($rule),
 					'argument' => $matches['argument'][$index]);
 			}
 		} else {
