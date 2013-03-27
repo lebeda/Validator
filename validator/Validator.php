@@ -28,8 +28,6 @@ class Validator extends ValidatorRulesProvider {
 			$input = str_replace(',', '.', $input);
 			if ((string) $input === (string) (float) $input) {
 				return TRUE;
-			} else {
-				return FALSE;
 			}
 		}
 		
@@ -40,8 +38,6 @@ class Validator extends ValidatorRulesProvider {
 		if (is_numeric($input)) {
 			if ((string) $input === (string) (int) $input) {
 				return TRUE;
-			} else {
-				return FALSE;
 			}
 		}
 		
