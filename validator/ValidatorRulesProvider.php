@@ -6,7 +6,7 @@ class ValidatorRulesProvider {
 	const DEFAULT_CHARSET = 'UTF-8';
 	const DEFAULT_FUNCTION_PREFIX = 'is';
 	
-	protected $ruleRegularExpression = '#(?P<rule>[a-zA-Z]+)(?:\[(?P<argument>\w+)\])?\|?#';
+	protected $ruleRegularExpression = '~(?P<rule>[a-zA-Z]+)(?:\[(?P<argument>\w+)\])?\|?~';
 	protected $rules = array();
 	protected $charset;
 	
