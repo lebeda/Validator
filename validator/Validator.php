@@ -1,5 +1,8 @@
 <?php
 
+require_once __DIR__ . '/ValidatorRulesProvider.php';
+require_once __DIR__ . '/NotImplementedException.php';
+
 class Validator extends ValidatorRulesProvider {
 	
 	protected $specialAplhabet = 'áäčďéëěíïňóöřšťúůüýÿžÁÄČĎÉËÍÏŇÓÖŘŠŤÚŮÜÝŸŽĚçãõâêôàÇÃÕÂÊÔÀĹĽĺľŔŕ';
