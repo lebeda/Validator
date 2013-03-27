@@ -7,23 +7,23 @@ class Validator extends ValidatorRulesProvider {
 	
 	protected $specialAplhabet = 'áäčďéëěíïňóöřšťúůüýÿžÁÄČĎÉËÍÏŇÓÖŘŠŤÚŮÜÝŸŽĚçãõâêôàÇÃÕÂÊÔÀĹĽĺľŔŕ';
 
-	protected function alpha($input) {
+	protected function isAlpha($input) {
 		throw new NotImplementedException(
 			'The validation function ' . __CLASS__ . '::' . __METHOD__ . ' is not implemented.'
 		);
 	}
 	
-	protected function alphaNumeric($input) {
+	protected function isAlphaNumeric($input) {
 		throw new NotImplementedException(
 			'The validation function ' . __CLASS__ . '::' . __METHOD__ . ' is not implemented.'
 		);
 	}
 	
-	protected function email($input) {
+	protected function isEmail($input) {
 		return (bool) filter_var($input, FILTER_VALIDATE_EMAIL);
 	}
 	
-	protected function float($input) {
+	protected function isFloat($input) {
 		if (is_numeric($input)) {
 			$input = str_replace(',', '.', $input);
 			if ((string) $input === (string) (float) $input) {
@@ -34,7 +34,7 @@ class Validator extends ValidatorRulesProvider {
 		return FALSE;
 	}
 	
-	protected function integer($input) {
+	protected function isInteger($input) {
 		if (is_numeric($input)) {
 			if ((string) $input === (string) (int) $input) {
 				return TRUE;
@@ -44,15 +44,15 @@ class Validator extends ValidatorRulesProvider {
 		return FALSE;
 	}
 	
-	protected function ip($input) {
+	protected function isIp($input) {
 		if (!$this->ipv4($input)) {
 			if ($this->ipv6($input)) {
 				return TRUE;
 			}
 			
 			return FALSE;
-		} elseif (!$this->ipv6($input)) {
-			if ($this->ipv4($input)) {
+		} elseif (!$this->isIpv6($input)) {
+			if ($this->isIpv4($input)) {
 				return TRUE;
 			}
 			
@@ -62,15 +62,15 @@ class Validator extends ValidatorRulesProvider {
 		return FALSE;
 	}
 	
-	protected function ipv4($input) {
+	protected function isIpv4($input) {
 		return filter_var($input, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) ? TRUE : FALSE;
 	}
 	
-	protected function ipv6($input) {
+	protected function isIpv6($input) {
 		return filter_var($input, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) ? TRUE : FALSE;
 	}
 	
-	protected function maxLength($input, $maxLength = NULL) {
+	protected function isMaxLength($input, $maxLength = NULL) {
 		if (is_null($maxLength)) {
 			return TRUE;
 		} elseif (
@@ -83,7 +83,7 @@ class Validator extends ValidatorRulesProvider {
 		}
 	}
 	
-	protected function maxRange($input, $maxRange = NULL) {
+	protected function isMaxRange($input, $maxRange = NULL) {
 		if (is_null($maxRange)) {
 			return TRUE;
 		} else {
@@ -91,7 +91,7 @@ class Validator extends ValidatorRulesProvider {
 		}
 	}
 	
-	protected function minLength($input, $minLength = NULL) {
+	protected function isMinLength($input, $minLength = NULL) {
 		if (is_null($minLength)) {
 			return TRUE;
 		} elseif (
@@ -104,7 +104,7 @@ class Validator extends ValidatorRulesProvider {
 		}
 	}
 	
-	protected function minRange($input, $minRange = NULL) {
+	protected function isMinRange($input, $minRange = NULL) {
 		if (is_null($minRange)) {
 			return TRUE;
 		} else {
