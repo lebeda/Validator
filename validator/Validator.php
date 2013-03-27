@@ -5,11 +5,15 @@ class Validator extends ValidatorRulesProvider {
 	protected $specialAplhabet = 'áäčďéëěíïňóöřšťúůüýÿžÁÄČĎÉËÍÏŇÓÖŘŠŤÚŮÜÝŸŽĚçãõâêôàÇÃÕÂÊÔÀĹĽĺľŔŕ';
 
 	protected function alpha($input) {
-		return TRUE;
+		throw new NotImplementedException(
+			'The validation function ' . __CLASS__ . '::' . __METHOD__ . ' is not implemented.'
+		);
 	}
 	
 	protected function alphaNumeric($input) {
-		return TRUE;
+		throw new NotImplementedException(
+			'The validation function ' . __CLASS__ . '::' . __METHOD__ . ' is not implemented.'
+		);
 	}
 	
 	protected function email($input) {
