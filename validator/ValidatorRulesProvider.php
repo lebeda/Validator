@@ -10,6 +10,10 @@ class ValidatorRulesProvider {
 	protected $rules = array();
 	protected $charset;
 	
+	public function __construct($charset = 'UTF-8') {
+		$this->charset = $charset;
+	}
+	
 	public function validate($input, $rules) {
 		$this->prepareRules($rules);
 		if (!empty($this->rules)) {
