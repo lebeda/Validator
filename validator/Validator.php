@@ -72,7 +72,11 @@ class Validator extends ValidatorRulesProvider {
 	}
 	
 	protected function isMaxValue($input, $maxValue) {
-		return ($maxValue >= (int) $this->translateCommaToDots($input));
+		if ($this->isInteger($maxValue)) {
+			return ((int) $maxValue >= (int) $this->translateCommaToDots($input));
+		} else {
+			return FALSE;
+		}
 	}
 	
 	protected function isMinLength($input, $minLength) {
@@ -87,6 +91,10 @@ class Validator extends ValidatorRulesProvider {
 	}
 	
 	protected function isMinValue($input, $minValue) {
-		return ($minValue <= (int) $this->translateCommaToDots($input));
+		if ($this->isInteger($minValue)) {
+			return ((int) $minValue <= (int) $this->translateCommaToDots($input));
+		} else {
+			return FALSE;
+		}
 	}
 }
