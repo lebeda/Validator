@@ -8,9 +8,8 @@ class Validator extends ValidatorRulesProvider {
 	protected $specialAplhabet = 'áäčďéëěíïňóöřšťúůüýÿžÁÄČĎÉËÍÏŇÓÖŘŠŤÚŮÜÝŸŽĚçãõâêôàÇÃÕÂÊÔÀĹĽĺľŔŕ';
 
 	protected function isAlpha($input) {
-		throw new NotImplementedException(
-			'The validation function ' . __METHOD__ . ' is not implemented.'
-		);
+		$alphaRegularExpression = '~^([a-zA-Za-z' . $this->specialAplhabet . ']+)$~';
+		return (bool) preg_match($alphaRegularExpression, $input);
 	}
 	
 	protected function isAlphaNumeric($input) {
