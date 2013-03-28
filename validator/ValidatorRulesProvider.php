@@ -10,7 +10,7 @@ class ValidatorRulesProvider {
 	protected $rules = array();
 	protected $charset;
 	
-	public function __construct($charset = 'UTF-8') {
+	public function __construct($charset = self::DEFAULT_CHARSET) {
 		$this->charset = $charset;
 	}
 	
