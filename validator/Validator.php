@@ -8,14 +8,13 @@ class Validator extends ValidatorRulesProvider {
 	protected $specialAplhabet = 'áäčďéëěíïňóöřšťúůüýÿžÁÄČĎÉËÍÏŇÓÖŘŠŤÚŮÜÝŸŽĚçãõâêôàÇÃÕÂÊÔÀĹĽĺľŔŕ';
 
 	protected function isAlpha($input) {
-		$alphaRegularExpression = '~^([a-zA-Za-z' . $this->specialAplhabet . ']+)$~';
+		$alphaRegularExpression = '~^([a-zA-Z' . $this->specialAplhabet . ']+)$~';
 		return (bool) preg_match($alphaRegularExpression, $input);
 	}
 	
 	protected function isAlphaNumeric($input) {
-		throw new NotImplementedException(
-			'The validation function ' . __METHOD__ . ' is not implemented.'
-		);
+		$alphaNumericRegularExpression = '~^([a-zA-Z0-9' . $this->specialAplhabet . ']+)$~';
+		return (bool) preg_match($alphaNumericRegularExpression, $input);
 	}
 	
 	protected function isEmail($input) {
@@ -72,8 +71,8 @@ class Validator extends ValidatorRulesProvider {
 		return FALSE;
 	}
 	
-	protected function isMaxRange($input, $maxRange) {
-		return ($maxRange >= (int) str_replace(',', '.', $input));
+	protected function isMaxValue($input, $maxValue) {
+		return ($maxValue >= (int) str_replace(',', '.', $input));
 	}
 	
 	protected function isMinLength($input, $minLength) {
@@ -87,7 +86,7 @@ class Validator extends ValidatorRulesProvider {
 		return FALSE;
 	}
 	
-	protected function isMinRange($input, $minRange) {
-		return ($minRange <= (int) str_replace(',', '.', $input));
+	protected function isMinValue($input, $minValue) {
+		return ($minValue <= (int) str_replace(',', '.', $input));
 	}
 }
