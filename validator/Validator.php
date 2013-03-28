@@ -47,9 +47,9 @@ class Validator extends ValidatorRulesProvider {
 			return TRUE;
 		} elseif ($this->isIpv6($input)) {
 			return TRUE;
-		} else {
-			return FALSE;
 		}
+		
+		return FALSE;
 	}
 	
 	protected function isIpv4($input) {
@@ -74,9 +74,9 @@ class Validator extends ValidatorRulesProvider {
 	protected function isMaxValue($input, $maxValue) {
 		if ($this->isInteger($maxValue)) {
 			return ((int) $maxValue >= (int) $this->translateCommaToDots($input));
-		} else {
-			return FALSE;
 		}
+		
+		return FALSE;
 	}
 	
 	protected function isMinLength($input, $minLength) {
@@ -93,8 +93,8 @@ class Validator extends ValidatorRulesProvider {
 	protected function isMinValue($input, $minValue) {
 		if ($this->isInteger($minValue)) {
 			return ((int) $minValue <= (int) $this->translateCommaToDots($input));
-		} else {
-			return FALSE;
 		}
+		
+		return FALSE;
 	}
 }
