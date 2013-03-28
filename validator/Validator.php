@@ -23,7 +23,7 @@ class Validator extends ValidatorRulesProvider {
 	
 	protected function isFloat($input) {
 		if (is_numeric($input)) {
-			$input = str_replace(',', '.', $input);
+			$input = $this->translateCommaToDots($input);
 			if ((string) $input === (string) (float) $input) {
 				return TRUE;
 			}
@@ -72,7 +72,7 @@ class Validator extends ValidatorRulesProvider {
 	}
 	
 	protected function isMaxValue($input, $maxValue) {
-		return ($maxValue >= (int) str_replace(',', '.', $input));
+		return ($maxValue >= (int) $this->translateCommaToDots($input));
 	}
 	
 	protected function isMinLength($input, $minLength) {
@@ -87,6 +87,6 @@ class Validator extends ValidatorRulesProvider {
 	}
 	
 	protected function isMinValue($input, $minValue) {
-		return ($minValue <= (int) str_replace(',', '.', $input));
+		return ($minValue <= (int) $this->translateCommaToDots($input));
 	}
 }
