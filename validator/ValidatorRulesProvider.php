@@ -59,4 +59,8 @@ class ValidatorRulesProvider {
 			return $this->charset;
 		}
 	}
+	
+	protected function translateCommaToDots($input) {
+		return str_replace(',', '.', $input);
+	}
 }
