@@ -4,7 +4,8 @@ class ValidatorRulesProvider {
 	
 	const RULE_SEPARATOR = '|';
 	const DEFAULT_CHARSET = 'UTF-8';
-	const DEFAULT_FUNCTION_PREFIX = 'is';
+	const DEFAULT_VALIDATE_FUNCTION_PREFIX = 'is';
+	const DEFAULT_EXPORT_FUNCTION_PREFIX = 'exportTo';
 	
 	protected $ruleRegularExpression = '~(?P<rule>[a-zA-Z]+)(?:\[(?P<argument>\w+)\])?\|?~';
 	protected $rules = array();
@@ -35,6 +36,27 @@ class ValidatorRulesProvider {
 		}
 	}
 	
+	public function export($input, $rules) {
+		$this->prepareRules($rules);
+		if (!empty($this->rules)) {
+			$this->result = FALSE;
+			foreach ($this->rules as $rule) {
+				$functionName = $this->getExportFunctionFromRule($rule['rule']);
+				if (empty($rule['argument'])) {
+					$result = $this->$functionName($input);
+				} else {
+					$result = $this->$functionName($input, $rule['argument']);
+				}
+				
+				if ($result !== TRUE) {
+					return FALSE;
+				}
+			}
+			
+			return TRUE;
+		}
+	}
+	
 	protected function prepareRules($stringRules) {
 		if (is_string($stringRules)) {
 			preg_match_all($this->ruleRegularExpression, $stringRules, $matches);
@@ -49,7 +71,11 @@ class ValidatorRulesProvider {
 	}
 	
 	protected function getValidationFunctionFromRule($rule) {
-		return self::DEFAULT_FUNCTION_PREFIX . ucfirst($rule);
+		return self::DEFAULT_VALIDATE_FUNCTION_PREFIX . ucfirst($rule);
+	}
+	
+	protected function getExportFunctionFromRule($rule) {
+		return self::DEFAULT_EXPORT_FUNCTION_PREFIX . ucfirst($rule);
 	}
 	
 	public function setCharset($charset = self::DEFAULT_CHARSET) {
