@@ -6,6 +6,10 @@ require_once __DIR__ . '/NotImplementedException.php';
 class Validator extends ValidatorRulesProvider {
 	
 	protected $specialAplhabet = 'áäčďéëěíïňóöřšťúůüýÿžÁÄČĎÉËÍÏŇÓÖŘŠŤÚŮÜÝŸŽĚçãõâêôàÇÃÕÂÊÔÀĹĽĺľŔŕ';
+	
+	public function exportToInteger($input) {
+		throw new NotImplementedException('Function ' . __METHOD__ . ' is not implented.');
+	}
 
 	public function isAlpha($input) {
 		$alphaRegularExpression = '~^([a-zA-Z' . $this->specialAplhabet . ']+)$~';
