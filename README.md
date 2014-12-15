@@ -1,4 +1,4 @@
 Validator
-=========
+===
 
 PHP validating library
